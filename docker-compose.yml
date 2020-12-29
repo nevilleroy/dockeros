@@ -1,0 +1,32 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7  
+    volumes:
+      - rsvp_database:/var/lib/mysql
+    environment:    
+      MYSQL_ROOT_PASSWORD: jeevan123
+      MYSQL_DATABASE: rsvp_data
+    networks:
+      - rsvpnet
+
+  web:
+    build: . 
+    ports:
+      - "5000:5000"
+    environment:
+      MYSQL_HOST: mysql 
+      MYSQL_USER: root
+      MYSQL_PASSWORD: jeevan123
+      MYSQL_DB: rsvp_data
+      TEXT1: Hackfest 
+      TEXT2: Registration 
+      ORGANIZER: UVCE 
+    networks:
+      - rsvpnet
+
+networks:
+  rsvpnet:
+
+volumes:
+  rsvp_database:
